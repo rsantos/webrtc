@@ -7,11 +7,10 @@
     <body>
         <video id="localstreamer" autoplay></video>
         <script>
-            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.msGetUserMedia || navigator.oGetuserMedia;
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
             var video = document.getElementById("localstreamer");
 
             if(navigator.getUserMedia){
-                // navigator.getUserMedia({video: true}, handleStream, handleErrorStream);
                 navigator.mediaDevices
                     .getUserMedia({video: true})
                     .then(handleStream)
