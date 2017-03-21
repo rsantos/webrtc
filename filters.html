@@ -3,21 +3,49 @@
     <head>
         <title></title>
         <meta charset="UTF-8">
+
+        <style>
+            .none {
+                filter: none;
+            }
+            .sepia {
+                filter: sepia(1);
+            }
+            .gray {
+                filter: grayscale(1);
+            }
+            .blur {
+                filter: blur(5px);
+            }
+        </style>
     </head>
     <body>
+        <button id="button" type="button">Click here for photo</button>
+        <select id="filter">
+            <option value="none">None</option>
+            <option value="sepia">Sepia</option>
+            <option value="gray">Gray</option>
+            <option value="blur">Blur</option>
+        </select>
+
         <video id="video" autoplay></video>
         <canvas id="canvas"></canvas>
-        <button id="button" type="button">Click here for photo</button>
 
         <script>
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.msGetUserMedia || navigator.oGetuserMedia;
-            
+
             var video = document.getElementById("video");
             var canvas = document.getElementById("canvas");
             var button = document.getElementById("button");
+            var select = document.getElementById("filter");
 
             canvas.width = 480;
             canvas.height = 360;
+
+            select.onchange = function(){
+                videos.className = select.value;
+                canvas.className = select.value;
+            }
 
             button.onclick = function(){
                 canvas.width = video.videoWidth;
