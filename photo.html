@@ -5,13 +5,30 @@
         <meta charset="UTF-8">
     </head>
     <body>
-        <video id="localstreamer" autoplay></video>
+        <video id="video" autoplay></video>
+        <canvas id="canvas"></canvas>
+        <button type="button">Click here for photo</button>
+
         <script>
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.msGetUserMedia || navigator.oGetuserMedia;
-            var video = document.getElementById("localstreamer");
+            
+            var video = document.getElementById("video");
+            var canvas = document.getElementById("canvas");
+            var button = document.getElementById("button");
+
+            canvas.width = 480;
+            canvas.height = 360;
+
+            button.onclick = function(){
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+
+                canvas
+                    .getContext('2D')
+                    .drawImage(video, 0, 0, canvas.width, canvas.height);
+            }
 
             if(navigator.getUserMedia){
-                // navigator.getUserMedia({video: true}, handleStream, handleErrorStream);
                 navigator.mediaDevices
                     .getUserMedia({video: true})
                     .then(handleStream)
@@ -36,7 +53,6 @@
                     console.log('device not found');
                 }
             }
-
         </script>
     </body>
 </html>
