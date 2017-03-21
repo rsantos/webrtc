@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <video id="localstreamer" autoplay></video>
+        <script>
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.msGetUserMedia || navigator.oGetuserMedia;
+            var video = document.getElementById("localstreamer");
+
+            if(navigator.getUserMedia){
+                // navigator.getUserMedia({video: true}, handleStream, handleErrorStream);
+                navigator.mediaDevices
+                    .getUserMedia({video: true})
+                    .then(handleStream)
+                    .catch(handleErrorStream);
+            }
+
+            function handleStream(stream){
+                var track = stream.getVideoTracks();
+                console.log(track);
+                video.srcObject = stream;
+            }
+
+            function handleErrorStream(err){
+                console.log(err);
+                if(err.name == 'ConstraintNotSatisfiedError'){
+                    console.log('invalid option');
+                }
+                if(err.name == 'PermissionDeniedError'){
+                    console.log('permission denied');
+                }
+                if(err.name == 'DevicesNotFoundError'){
+                    console.log('device not found');
+                }
+
+            }
+
+        </script>
+    </body>
+</html>
